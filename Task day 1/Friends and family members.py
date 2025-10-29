@@ -1,0 +1,15 @@
+print("Family members")
+print("Father - Nallamuthu")
+print("Mother- Rajalakshmi")
+print("Spouse- Packiyanathan")
+print("Daughter- Nethra")
+print("Sister- Divya")
+print()
+print("Friends lists")
+print("Ajitha")
+print("Fathima")
+print("Karthika")
+print("Devi")
+print("Andal")
+
+
