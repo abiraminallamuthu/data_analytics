@@ -34,4 +34,53 @@ t=(1,2,3,"a","b","c","apple","mango",True,2.5)
 print(t[3])
 print(t[-4])
 
-print("\n")
+print("\nWrite a python program to find the repeated items of a tuple:")
+t=(1,2,3,2,3,4,1,4)
+repeated=[]
+for i in t:
+    if t.count(i)>1 and i not in repeated:
+        repeated.append(i)
+print("Repeated elements:",repeated)
+
+print("\nWrite a python program to check whether an element exists within a tuple:")
+t=(3,6,2,5,8)
+x=int(input("Enter element to check: "))
+if x in t:
+    print(x,"exists in the tuple")
+else:
+    print(x,"doesn't exist in the tuple")
+print()
+
+print("\nWrite a python program to convert a list to a tuple:")
+l=[1,2,3,4]
+print(tuple(l))
+
+print("\nWrite a python program to remove an item from a tuple:")
+l=(1,2,3,4,5)
+s=list(l)
+s.remove(5)
+print(s)
+
+print("\nWrite a python program to slice a tuple:")
+l=(1,2,3,4,5,6)
+print("First Two Elements: ",l[:2])
+print("Last Two Elements: ",l[-2:])
+
+print("\nWrite a python program to find the index of an item of a tulpe:")
+l=(1,2,3,4,5,6)
+print(l.index(2))
+
+print("\nWrite a python program to find the length of a tuple:")
+t=(1,2,3,4,5,6)
+print(len(t))
+
+print("\nWrite a python program to reverse a tuple:")
+t=(1,2,3,4,5,6)
+print(t[::-1])
+
+print("\nWrite a python program  convert a given string list to a tuple:")
+l=['apple','orange','mango','pineapple']
+print(tuple(l))
+
+
+
