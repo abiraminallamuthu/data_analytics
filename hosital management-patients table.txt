@@ -1,0 +1,96 @@
+PATIENTS:
+CREATE TABLE patients(patients_id int,name varchar(100),age int,gender varchar(10),phone varchar(15),address varchar(255),disease varchar(100),room_id int)
+INSERT INTO patients(patients_id,name,age,gender,phone,address,disease,room_id)VALUES(1,'rahul',32,'male',7864368765,'chennai','fever','r101'),(2,'priya',35,'female',877896463,'madurai','diabetes','r205'),(3,'arun',40,'male',9895678435,'tirchy','pressure','r310'),(4,'meena',55,'female',8763452130,'salem','cold','r122'),(5,'vignesh',29,'male',956783402,'karur','fracture','r410')
+
+
+PATIENTS:
+1.SELECT * FROM `patients` male  
+2.SELECT * FROM `patients`WHERE name LIKE 'a%'
+3.SELECT * FROM `patients` WHERE age BETWEEN 30 and 50
+4.SELECT * FROM `patients` order by age desc limit 3  
+5.UPDATE patients SET phone=98765675672 where patients_id=3
+6.DELETE FROM patients where age>20
+7.SELECT * FROM `patients` WHERE address in('chennai','delhi')   
+8.SELECT * FROM `patients` WHERE address not in('hyderbad','bangalore')                                        
+9.SELECT * FROM `patients` WHERE address is null
+10.update patients set address='unknown' where address is null
+11.SELECT * FROM `patients` order by age desc
+12.UPDATE patients set age=age+1
+13.alter table patients change  phone contact int 
+14.TRUNCATE TABLE patients
+15.ALTER TABLE patients
+
+DOCTORS:
+
+INSERT INTO Doctors VALUES
+(1, 'Dr. Suresh', 'Cardiologist', '9000011111', 101),
+(2, 'Dr. Anita', 'Dermatologist', '9000022222', 102),
+(3, 'Dr. Ramesh', 'Orthopedic', '9000033333', 103),
+(4, 'Dr. Kavitha', 'Neurologist', '9000044444', 104),
+(5, 'Dr. John', 'General Physician', '9000055555', 105);
+DOCTORS:
+1.SELECT * FROM `doctors` WHERE specialization='neurologists'
+2.SELECT * FROM `doctors` WHERE name like '%a%'
+3.SELECT * FROM `doctors` WHERE room_no>102
+4.SELECT * FROM `doctors` order by name limit 2
+5.UPDATE doctors set phone='8976432432' where doctor_id=5
+6.DELETE FROM doctors WHERE specialization='orthopedic'
+7.SELECT * FROM doctors where specialization IN('cardiologist','dermatologist')
+8.SELECT * FROM `doctors` WHERE specialization not in('general_physician','orthopedic')
+9.SELECT * FROM `doctors` WHERE room_no is not null
+10.update doctors set room_no=room_no+10
+11.alter table doctors change column room_no chamber_no int
+12.SELECT * FROM `doctors` order by specialization,name
+13.SELECT * FROM `doctors` WHERE phone like '90000%'
+14.TRUNCATE TABLE doctors
+
+APPOINTMENT:
+1.SELECT status FROM `appointment` 
+2.SELECT * FROM `appointment` WHERE DATE='2025-01-12'
+3.SELECT * FROM `appointment`WHERE time LIKE '%am%'
+4.SELECT * FROM `appointment`  order by  appointment_id desc limit 2
+5.UPDATE appointment set status='completed' WHERE appointment_id=3
+6.DELETE from appointment where status='cancelled'
+7.select * from appointment where patient_code in(10,30,50)
+8.SELECT * FROM `appointment` WHERE appointment_id NOT IN(101,202,303) 
+9.SELECT * FROM `appointment` WHERE status is null
+10.UPDATE appointment set status='pending' where status is null
+11.SELECT * FROM `appointment` order by date ASC, time ASC
+12.UPDATE appointment SET doctor_code=doctor_code+100
+13.alter table appointment add remarks varchar(250)
+14.TRUNCATE TABLE appointment
+15.drop table appointment
+
+BILLING:
+1.SELECT * FROM `billing` WHERE payment_status='pending'
+2.SELECT * FROM `billing` WHERE total_amount>4000
+3.SELECT * FROM `billing` WHERE discount>200
+4.SELECT * FROM `billing` order by amount desc limit 2
+5.UPDATE billing SET discount=1000 WHERE bill_id=1
+6.delete  FROM `billing` WHERE amount<3000
+7.SELECT * FROM `billing` WHERE patient_code in(20,30)
+8.SELECT * FROM `billing` WHERE payment_status not in('paid')
+9.SELECT * FROM `billing` where total_amount is not null
+10.UPDATE billing set total_amount=total_amount*0.1
+11.alter table billing change payment_status status varchar(50)
+12.SELECT * FROM `billing` order by total_amount desc
+13.SELECT * FROM `billing` WHERE discount like '5%'
+14.TRUNCATE TABLE billing
+15.DROP TABLE billing
+
+ROOMS:
+1.SELECT * FROM `rooms` WHERE availability='available'
+2.SELECT * FROM `rooms` WHERE room_type='icu'
+3.SELECT * FROM `rooms` WHERE price_per_day>2000
+4.SELECT * FROM `rooms` order by price_per_day ASC
+5.UPDATE rooms set availability='available' WHERE room_id=4
+6.DELETE FROM room_type='general'
+7.SELECT * from rooms where room_type in('private','icu')
+8.SELECT * FROM `rooms` WHERE room_type not in('general')
+9.SELECT * FROM `rooms` WHERE availability is null
+10.UPDATE rooms SET availability=unknown where availability is null
+11.UPDATE rooms SET price_per_day=price_per_day * 0.2
+12.alter table rooms ADD floor_no int
+13.SELECT * FROM `rooms` WHERE room_type LIKE 'p%'
+14.TRUNCATE TABLE rooms
+15.DROP TABLE rooms

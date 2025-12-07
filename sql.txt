@@ -1,0 +1,24 @@
+CREATE TABLE student(student_id int primary key,name varchar(50),age int,grade varchar(10),city varchar(30);
+INSERT INTO student(name,age,grade,city) VALUES("abi",28,"a","madurai"),("aji",25,"b","theni"),("fathima",27,"c","trichy"),("devi",35,"a","karur"),("vani"23,"d","bodi");
+
+SELECT * FROM `product table`
+SELECT product_name ,price FROM `product table` 
+SELECT * FROM `product table` WHERE category='electronics';
+SELECT * FROM `product table` WHERE price>500;
+SELECT * FROM `product table` WHERE supplier='abc supplier';
+SELECT product_name,stock FROM `product table`
+SELECT * FROM product WHERE<50;
+SELECT * FROM product WHERE category='furniture';
+SELECT * FROM product;
+SELECT * FROM product WHERE category<>'electronics';
+SELECT product_name,category FROM product;
+SELECT * FROM product WHERE price BETWEEN 100 AND 300;
+SELECT * FROM product WHERE stock=100;
+SELECT * FROM product WHERE category='grocery';
+SELECT  product_name FROM product WHERE price<200;
+SELECT product_name,supplier FROM product;
+SELECT * FROM product WHERE stock<>0;
+ 
+
+SELECT * FROM `student` 
+SELECT name,grade FROM `student

@@ -1,0 +1,153 @@
+PATIENTS:
+CREATE TABLE patients(
+patient_id  INT PRIMARY key,
+name VARCHAR(100),
+age INT,
+gender VARCHAR(10),
+phone VARCHAR(15),
+address VARCHAR(255),
+disease VARCHAR(100),
+room_id INT,
+FOREIGN KEY(room_id)REFERENCES room(room_id));  
+ 
+INSERT INTO patients(patient_id,name,age,gender,phone,address,disease,room_id)VALUES(1,'Arjun', 45,'Male', 9876543210, 'MG_Street',' Fever', 101),
+(2,'Priya', 34,' Female',' NULL', 'Gandhi Road',' Diabetes', 102),(3,'Karan', 17,' Male', 9123456677, 'Anna_Nagar', 'hypertension', '202'),
+(4,'David', 55,' Male', 9988776644, 'Main_Street', 'Heartissue', 204),
+ (5,'Anu', 60, 'Female', 9090909090, 'Lake_Street', 'Asthma', 301);
+
+PATIENTS TASK:
+1.SELECT * FROM `patients` where name like 'a%'
+2.SELECT * FROM `patients` WHERE age>50
+3.INSERT INTO patients (name, age, gender, phone, address, disease, room_id)
+VALUES ('Ravi Kumar', 45, 'Male', '9876543210', 'Chennai', 'Fever', 101);
+4.UPDATE patients set phone=8764230987 where patient_id=0
+5.DELETE FROM patients where phone is null
+6.SELECT * FROM `patients` WHERE room_id in (101,102)	
+7.SELECT * FROM `patients` WHERE patient_id not in(1,2,3)
+8.SELECT * FROM `patients` order by age asc limit 5
+9.SELECT * FROM `patients` WHERE address like '%street%'
+10.SELECT * FROM `patients` WHERE gender in('male','female')
+11.DELETE FROM `patients` WHERE age<18  
+12.UPDATE patients set room_id=202 where room_id=204 
+13.SELECT * FROM `patients` WHERE disease is null 
+14.INSERT INTO patients(patient_id,name,age,gender,phone,address,disease)VALUES(7,'Amutha', 65,'female', 9872346780, 'anna nagar','cough ')
+15.SELECT * FROM `patients`order by name asc    
+
+
+DOCTORS:
+INSERT INTO doctors(doctor_id,name,specialization,phone,available_time)VALUES(201,'Dr.Deepak','Cardiology',9000000001,'10AM–2PM'),
+(202,'Dr.Riya','Neuro',9888888888,'2PM–6PM'),
+(203,'Dr.Sunil','General','NULL','NULL'),
+(204,'Dr.Divya','Dental',9000080000,'9AM–1PM');   
+
+DOCTORS TASK:
+1.SELECT * FROM `doctors` WHERE specialization like'%cardio%'
+2.INSERT into doctors(doctor_id,name,specialization,phone,available_time)VALUES(206,'Dr.kavitha','dentist',9000000067,'12PM–2PM')
+3.update doctors set available_time='10pm-2pm' where name='dr.kavitha'
+4.delete from doctors where specialization is null
+5.SELECT * FROM `doctors` WHERE name like 'd%
+6.SELECT * FROM `doctors` WHERE specialization in('ortho','neuro','dental')
+7.SELECT * FROM `doctors` WHERE phone like '%00' 
+8.INSERT INTO doctors(doctor_id,name,specialization,phone)VALUES(208,'Dr.geetha','general',9000000011) 
+9.Select * from doctors LIMIT 3
+10.UPDATE doctors SET specialization = 'General Physician' WHERE specialization = 'General';
+11.SELECT * FROM `doctors` WHERE Length(name)>5
+12.DELETE from doctors where phone is null
+13.SELECT * FROM `doctors` order by doctor_id desc
+14.SELECT * FROM `doctors` WHERE specialization not in('cardio','neuro')
+15.UPDATE doctors SET phone = '9000000000'
+
+ROOMS:
+INSERT INTO rooms(room_id,room_no,room_type,status) VALUES(101, 'A101','ICU','Occupied'),
+(102 ,'A102', 'General', 'Available'),
+(202, 'B202', 'Private', 'Occupied'),
+(204,'B204','General','NULL'),
+(301,'C301','ICU','Available');
+
+ROOMS TASKS:
+1.SELECT * FROM `rooms` WHERE status='available'
+2.update rooms set status='occupied' where room_no=102
+3.INSERT INTO rooms(room_id,room_no,room_type,status) VALUES(108, 'A108','ICU','Occupied')
+4.delete from rooms where status is null
+5.SELECT * FROM `rooms` WHERE room_type in('icu','general')
+6.SELECT *FROM rooms WHERE room_no LIKE '1%'
+7.SELECT * FROM rooms LIMIT 5;
+8.UPDATE rooms SET room_type = 'General Ward' WHERE room_type = 'General';
+9.DELETE FROM rooms WHERE room_no > 300;
+10.SELECT * FROM rooms ORDER BY room_no ASC
+11.INSERT INTO rooms (room_id, room_no, room_type) VALUES (210, 210, 'ICU');
+12.SELECT room_id FROM rooms WHERE room_id NOT IN (101, 102, 103);
+13.UPDATE rooms SET room_type = 'Private' WHERE room_no = 210;
+14.SELECT * FROM `rooms` WHERE status is null
+15.TRUNCATE TABLE rooms
+
+APPOINTMENTS:
+CREATE TABLE appointments(appointment_id
+INT PRIMARY KEY,
+patient_id INT,
+doctor_id INT,
+appointment_date DATE,
+status VARCHAR(20),
+FOREIGN KEY(patient_id)REFERENCES patients(patient_id),
+FOREIGN KEY(doctor_id)REFERENCES doctors(doctor_id)); 
+
+INSERT QUERY:
+INSERT INTO appointments(appointment_id,patient_id,doctor_id,appointment_date,status)VALUES(1001,1,201,2025-01-15,'Completed'),
+(1002,2,202,2025-01-16,'NULL'),
+(1003,4,204,2025-02-01,'Cancelled'),
+(1004,3,201,'NULL','Pending');
+
+APPOINTMENTS TASKS:
+1.INSERT INTO appointments (appointment_id, patient_id, doctor_id, appointment_date, status)
+VALUES (51, 105, 7, '2025-01-10', 'Scheduled');
+2.SELECT * FROM appointments WHERE appointment_date = CURRENT_DATE;
+3.DELETE FROM appointments WHERE status IS NULL
+4.SELECT * FROM appointments WHERE patient_id = 101;
+5.SELECT * FROM appointments WHERE doctor_id IN (5, 6);
+6.UPDATE appointments SET status = 'Completed' WHERE appointment_id = 10;
+7.SELECT * FROM appointments ORDER BY appointment_date DESC LIMIT 3;
+8.SELECT * FROM appointments WHERE appointment_date IS NULL;
+9.SELECT * FROM appointments WHERE appointment_date LIKE '2025-01%'
+10.DELETE FROM appointments WHERE status = 'Cancelled';
+11.UPDATE appointments SET appointment_date = '2025-02-15' WHERE appointment_id = 20;
+12.SELECT * FROM appointments WHERE patient_id NOT IN (101, 102);
+13.INSERT INTO appointments (appointment_id, patient_id, doctor_id, appointment_date)VALUES (52, 108, 4, '2025-01-12');
+14.SELECT * FROM appointments ORDER BY appointment_date DESC
+15.DELETE FROM appointments WHERE doctor_id = 7;
+
+
+BILLING:
+CREATE TABLE billing(bill_id INT PRIMARY KEY,
+patient_id INT,
+room_charges DECIMAL(10,2),
+doctor_fee DECIMAL(10,2),
+medicine_cost DECIMAL(10,2),
+total_amount DECIMAL(10,2),bill_date date,
+FOREIGN KEY(patient_id) REFERENCES patients(patient_id));    
+
+INSERT QUERY:
+INSERT INTO billing(bill_id,patient_id,room_charges,doctor_fee,medicine_cost,total_amount,bill_date)VALUES(5001,1,5000,1000,800,6800, 2025-01-15),
+(5002,4,8000,1500,1200,10700,2025-02-01),
+(5003,2,3000,500,'NULL','NULL',2025-01-16);
+
+BILLING TASKS:
+1.SELECT * FROM billing WHERE total_amount > 5000
+2.INSERT INTO billing (bill_id, patient_id, room_cost, medicine_cost, total_amount, bill_date)VALUES (201, 105, 3000, 1500, 4500, '2025-01-10');
+3.UPDATE billing SET medicine_cost = 2000 WHERE bill_id = 201;
+4.DELETE FROM billing WHERE medicine_cost IS NULL;
+5.SELECT * FROM billing WHERE patient_id IN (101, 103, 105)
+6.SELECT * FROM billing ORDER BY total_amount DESC LIMIT 3;
+7.INSERT INTO billing (bill_id, patient_id, room_cost, doctor_fee, total_amount, bill_date)VALUES (202, 110, 2500, 800, 3300, '2025-01-12');
+8.UPDATE billing SET total_amount = room_cost + doctor_fee + medicine_cost
+9.SELECT * FROM billing  WHERE total_amount BETWEEN 1000 AND 3000;
+10.DELETE FROM billing WHERE patient_id = 200;
+11.SELECT * FROM billing WHERE total_amount NOT IN (1000, 2000, 3000);
+12.UPDATE billing SET doctor_fee = doctor_fee * 1.10;
+13.TRUNCATE TABLE billing;
+14.SELECT * FROM billing WHERE doctor_fee IS NULL;
+
+
+
+
+
+

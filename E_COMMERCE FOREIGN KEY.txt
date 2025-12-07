@@ -1,0 +1,161 @@
+USERS:
+CREATE TABLE
+CREATE TABLE users(user_id INT PRIMARY KEY,
+name VARCHAR(100),
+email VARCHAR(150),
+phone VARCHAR(20),
+address VARCHAR(255));
+
+INSERT TABLE:
+INSERT INTO users (user_id, name, email, phone, address) VALUES
+(1, 'Arjun', 'arjun@gmail.com', 9876543210, 'MG Street, Chennai'),
+(2, 'Priya', 'priya@yahoo.com', 9123456780, 'Anna Nagar, Chennai'),
+(3, 'Karan', 'karan@gmail.com', NULL, 'Bangalore Main Road'),
+(4, 'David', 'david@outlook.com', 9988776655, 'Street No 5, Mumbai'),
+(5, 'Test', 'test@example.com', 9000001111, NULL);
+
+TASKS:
+USER TABLE:
+1.SELECT * FROM `users` where name like 'a%'
+2.insert into users(user_id,name,email,phone,address)values(6,'ashok','ashok45@gmail.com',8789653425,'raja_street');
+3.update users set email='example12@gmail.com' where user_id=1
+4.delete from users where phone is null 
+5.SELECT * FROM users where address like '%street%'
+6.SELECT * FROM `users` limit 5
+7.SELECT * FROM `users` WHERE  email like '%gmail.com'
+8.insert into users(user_id,name,email,phone)values(7,'jeeva','jeeva17@gmail.com',9876432170)
+9.update users set phone='not provided' where phone is null
+10.SELECT * from users where name in ('raj','karan','david') 
+11.SELECT * FROM `users` WHERE name not in('admin','test')
+12.delete from users where email not like'%@%'
+13.SELECT * FROM `users` order by name ASC
+14.update users set address='coimbatore' where user_id=3
+15.SELECT * FROM `users` WHERE length(name)>5;                
+
+
+
+PRODUCTS:
+CREATE TABLE products(product_id INT PRIMARY KEY,
+product_name VARCHAR(150),
+price DECIMAL(10,2),
+category VARCHAR(100));
+
+INSERT TABLE:
+INSERT INTO products(product_id, product_name, price, category) VALUES
+(101, 'Samsung Mobile', 18000, 'Electronics'),
+(102, 'Nike Shoes', 3500, 'Footwear'),
+(103, 'Laptop Pro 15', 65000, 'Electronics'),
+(104, 'Shirt Slim Fit', 1200, 'Clothing'),
+(105, 'Bluetooth Speaker', NULL, 'Electronics');
+
+TASKS:
+1.SELECT * FROM `products` WHERE category='electronics'
+2.insert into products(product_id,product_name,price,category)values(106,'smart watch',4500,'electronics')
+3.UPDATE products set price=3000 where product_id=101
+4.delete from produts where price is null
+5.select * from products where price>1000
+6.SELECT * FROM `products` WHERE  product_name like '%s'
+7.SELECT * FROM `products` ORDER BY price desc limit 3
+8.insert into products(product_id,product_name,price)values(108,'clock',1500)
+9.update products set price=price+(price*0.10)
+10.SELECT * FROM `products` WHERE category in ('clothoing','footwear')
+11.SELECT * FROM `products` WHERE product_name not in('mobile','laptop') 
+12.delete from products where category is null
+13.SELECT * FROM `products` order by price  desc 
+14.update products set category='home appliances' where product_id=106
+15.SELECT * FROM `products` WHERE product_name like '%pro%'
+
+
+ORDERS:
+CREATE TABLE orders (
+    order_id INT PRIMARY KEY,
+    user_id INT,
+    order_date DATE,
+    status VARCHAR(50),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+INSERT TABLE:
+INSERT INTO orders(order_id,user_id,order_date,status)VALUES(501,1,2025-01-10,'Pending'),
+(502,3,2025-01-11,'Shipped'),
+(503,2,2025-01-11,'Delivered'),
+(504,1,2025-02-01,'NULL'),
+(505,4,2025-02-05,'Cancelled');
+
+TASKS:
+1.SELECT * FROM `orders` 
+2.insert into orders(order_id,user_id,order_date,status)values(508,1,2025-03-14,'pending')
+3.UPDATE orders set status='shipped' where order_id=50
+4.delete from orders where status is null
+5.SELECT * FROM `orders` WHERE user_id in(101,102)
+6.SELECT * FROM `orders` WHERE status not in('shipped','delivered')
+7.SELECT * FROM `orders` order by order_date desc limit 5
+8.insert into orders(order_id,user_id,order_date)values(509,3,2025-08-18)
+9.SELECT * FROM `orders` WHERE order_date like '%2025-01%'
+10.update orders set order_date='2025-01-15' where order_id=50
+11.SELECT * FROM `orders` order by order_id desc
+12.delete from orders where status='cancelled'
+13.select * from orders where status is null
+14.update orders set status='pending'
+15.SELECT * FROM `orders` WHERE order_id>100 and user_id<50
+
+PAYMENTS:
+CREATE TABLE payments(payment_id INT PRIMARY KEY,
+order_id INT,
+amount DECIMAL(10,2),
+payment_method VARCHAR(50),
+payment_date DATE,
+FOREIGN KEY (order_id)REFERENCES orders(order_id));
+
+INSERT TABLE:
+INSERT INTO payments(payment_id,order_id,amount,payment_method,payment_date)VALUES(9001,501,18000,'UPI',2025-01-10),
+(9002,503,3500,'Card',2025-01-11),
+(9003,502,65000,'Cash',2025-01-12),
+(9004,505,'NULL','NULL',2025-02-05);
+
+TASKS:
+1.SELECT * FROM `payments` WHERE amount>5000
+2.INSERT INTO payments(payment_id,order_id,amount,payment_method,payment_date)VALUES(9008,508,16000,'UPI',2025-06-17),
+3.UPDATE payments set payment_method='card' where payment_id=20
+4.delete from payments where amount is null
+5.SELECT * FROM `payments` WHERE payment_method in('upi','card')
+6.SELECT * FROM `payments` WHERE payment_date like '2025-01%'
+7.SELECT * FROM `payments` order by amount desc limit 3
+8.INSERT INTO payments(payment_id,order_id,amount,payment_date)VALUES(9009,509,12000,2025-09-27)
+9.update payments set amount=amount*1.05
+10.SELECT * FROM `payments` WHERE payment_method not in('cash','upi')
+11.delete from payments where order_id=200
+12.SELECT * FROM `payments` order by payment_date DESC
+13.SELECT * FROM `payments` WHERE amount is null
+14.TRUNCATE TABLE PAYMENTS
+15.UPdate payments set amount=amount+100 where payment_id=12
+                                                                                   
+INVENTORY:
+CREATE TABLE inventory(inventory_id INT PRIMARY KEY,
+product_id INT,
+quantity INT,
+stock_status VARCHAR(50),FOREIGN KEY(product_id) REFERENCES products(product_id));     
+
+INSERT TABLE:
+INSERT INTO inventory(inventory_id,product_id,quantity,stock_status)VALUES(1,101,50,'In Stock'),
+(2,103,5,'Low Stock'),
+(3,104,0,'Out of Stock'),
+(4,102,'NULL','NULL'),
+(5,105,30,'In Stock');
+
+TASKS:
+1.SELECT * FROM `inventory` WHERE stock_status= 'in stock'
+2.INSERT INTO inventory(inventory_id,product_id,quantity,stock_status)VALUES(6,106,90,'In Stock')
+3.update inventory set quantity=80 where inventory_id=5
+4.delete from inventory where  quantity is null
+5.SELECT * FROM `inventory` WHERE quantity>50
+6.SELECT * FROM `inventory` WHERE product_id in(10,20,30)
+7.SELECT * FROM `inventory` WHERE product_id not in(5,6,7)
+8.select * from inventory limit 5
+9.update inventory set stock_status='out of stock' where quantity=0
+10.SELECT * FROM `inventory` order by quantity desc
+11.DELETE FROM inventory where stock_ststus is null
+12.update inventory set quantity=quantity+10
+13.select*from inventory where stock_status like '%low%'
+14.TRUNCATE TABLE inventory
+

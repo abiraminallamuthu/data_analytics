@@ -1,0 +1,38 @@
+UPDATE STUDENT TABLE:
+UPDATE student SET city="theni" where student_id=1;
+UPDATE student SET grade='a'WHERE city="chennai"
+UPDATE student  SET age=18 WHERE name="rahul"
+UPDATE student SET city="madurai" WHERE age>16;
+
+UDATE EMPLOYEE TABLE:
+UPDATE employee SET salary=30000 WHERE emp_id=3;
+UPDATE employee SET department = "admin" WHERE department="hr"
+UPDATE employee SET city="chennai" WHERE salary>3000;
+UPDATE employee SET name="abirami" WHERE name="abi"
+
+DELETE STUDENT TABLE:
+DELETE FROM student WHERE student_id=2;
+DELETE from student WHERE city="chennai"
+DELETE FROM student WHERE age<15;
+DELETE FROM student WHERE name="priya"
+DELETE FROM student WHERE grade="f"
+
+DELETE EMPLOYEE TABLE:
+DELETE FROM employee WHERE emp_id=4;
+DELETE FROM employee WHERE department="it"
+DELETE FROM employee WHERE salary<20000;
+DELETE FROM employee WHERE name="ravi";
+DELETE FROM employee WHERE city="madurai";
+
+UPDATE PRODUCT TABLE:
+UPDATE product SET price=1000 WHERE product_id=10; 
+UPDATE product SET stock=0 WHERE category="electronics"; 
+UPDATE product SET supplier="xyz supplier"WHERE product_name="chair"; 
+UPDATE product SET stock=100 WHERE price<200; 
+
+DELETE PRODUCT TABLE:
+DELETE FROM product WHERE product_id=5;
+DELETE FROM product WHERE category="grocery";
+DELETE FROM product WHERE stock=0;
+DELETE FROM product WHERE product_name="laptop";
+DELETE FROM product WHERE price>1000;
