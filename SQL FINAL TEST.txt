@@ -1,0 +1,166 @@
+SQL FINAL TEST:
+DEPARTMENT:
+CREATE TABLE:
+CREATE TABLE Department (dept_id INT PRIMARY KEY,dept_name VARCHAR(30));
+INSERT VALUES:
+INSERT INTO Department VALUES(1,'CSE'), (2,'IT'),(3,'ECE');
+
+EMPLOYEE:
+CREATE TABLE:
+ CREATE TABLE Employee (emp_id INT PRIMARY KEY, emp_name VARCHAR(50), age INT,salary INT, dept_id INT);
+INSERT VALUES:
+INSERT INTO employee values(101,'Ravi',25,30000,1), (102,'Anu',28,45000,2), (103,'Kumar',22,20000,1),
+(104,'Divya',30,55000,3),(105,'Arun',35,60000,2),(106,'Meena',27,40000,1);
+
+TASKS:
+1.Display all employee records.
+SELECT * FROM `employee`
+
+2.Display only emp_name and salary.
+SELECT emp_name,salary FROM employee;
+
+3. Display employees working in dept_id = 1.
+SELECT * FROM `employee` WHERE dept_id=1;
+
+4. Display employees whose salary is greater than 40000.
+SELECT * FROM `employee` WHERE salary>40000;
+
+5. Display employees whose age is BETWEEN 25 AND 30.
+SELECT * FROM `employee` WHERE age BETWEEN 25 AND 30; 
+
+6. Display employees whose department is IN (1,2).
+SELECT * FROM `employee` WHERE dept_id IN(1,2);
+
+7. Display employees whose name starts with 'A'.
+SELECT * FROM `employee` WHERE emp_name like 'a%';
+
+8. Find total number of employees.
+SELECT count(*) AS total_employee FROM employee;
+
+9. Find maximum salary.
+SELECT max(salary) AS max_salary from employee;
+
+10.Find total salary paid to all employees
+SELECT SUM(salary) AS total_salary FROM employee;
+
+11.Display number of employees in each department.
+SELECT dept_id,COUNT(*) AS total_employee from employee group by dept_id;
+
+12.Display average salary for each department.
+SELECT dept_id,AVG(salary) as AVG_salary from employee group by dept_id;
+
+13.Display departments having more than 2 employees.
+SELECT dept_id FROM employee group by dept_id HAVING COUNT(*)>2;
+
+14.Display employees ordered by salary (highest first).
+SELECT * FROM employee order BY salary DESC;
+
+15.Display employees ordered by name (A–Z).
+SELECT * FROM `employee` order by emp_name asc;
+
+16.Display top 3 highest paid employees.
+SELECT * FROM `employee` order by salary DESC limit 3;
+
+17.Update salary to 50000 for employee emp_id = 103.
+UPDATE employee SET salary=50000 WHERE emp_id=103;
+
+18.Increase salary by 10% for employees in dept_id = 1.
+UPDATE employee SET salary=salary+(salary * 0.10) WHERE dept_id=1;
+
+19.Delete employee whose emp_id = 106.
+DELETE FROM employee WHERE emp_id=106;
+
+20.Delete employees whose salary is less than 25000.
+DELETE FROM employee WHERE salary<25000
+
+21.Add a column email VARCHAR(50) to Employee table.
+ALTER TABLE employee ADD email varchar(50);
+
+22.Modify salary column datatype to DECIMAL(10,2).
+ALTER TABLE employee MODIFY salary decimal(10,2);
+
+23.Drop column age
+ALTER TABLE employee DROP column age;
+
+24.Display all employees even if department is missing (LEFT JOIN).
+SELECT e.emp_id,e.emp_name,d.dept_name FROM employee e LEFT JOIN department d ON e.dept_id=d.dept_id;
+
+25.Display department-wise employee list.
+SELECT d.dept_name,e.emp_name FROM department d LEFT JOIN employee e ON d.dept_id=e.dept_id;
+
+26.Display employees who earn more than average salary.
+SELECT * FROM `employee` WHERE salary>(SELECT avg(salary)FROM employee);
+
+27.Display employees working in the same department as ‘Ravi’.
+SELECT * FROM `employee` WHERE dept_id=(SELECT dept_id FROM employee WHERE emp_name='ravi' );
+
+28.Create a view HighSalaryEmp showing employees with salary > 45000.
+CREATE VIEW highsalaryemp AS SELECT * FROM employee WHERE salary>45000;
+
+29.Display records from the view.
+SELECT * FROM highsalaryemp;
+
+30.Drop the view.
+DROP VIEW highsalaryemployee;
+
+31.Create an index on salary column.
+CREATE INDEX idx_salary ON employee(salary); 
+ 
+32.Show all indexes on Employee table.
+SHOW INDEX FROM employee;
+
+33.Drop the index.
+DROP INDEX idx_salary ON employee;
+
+34.Create a procedure to display all employees.
+DELIMITER $$
+CREATE PROCEDURE getallemployee()
+BEGIN
+  SELECT * FROM employee;
+END $$
+DELIMITER ;
+TO CALL:
+CALL GETallemployee();
+  
+35.Create a procedure that accepts dept_id and displays employees.
+DELIMITER $$
+CREATE PROCEDURE GETemployeebydept(IN d_id int)
+BEGIN
+  SELECT * FROM employee WHERE dept_id=d_id;
+END $$
+DELIMITER ;
+
+36.Call the procedure for dept_id = 1.
+CALL GETtemployeebydept(1);
+
+37.Create a BEFORE INSERT trigger to prevent salary < 10000.
+DELIMITER $$
+CREATE TRIGGER check_salary
+BEFORE INSERT ON employee
+FOR each ROW
+BEGIN
+   IF new.salary<10000 THEN
+   SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='salary must be atleast 10000';
+   END IF;
+END $$
+DELIMITER ;
+
+38.Insert a new employee and COMMIT.
+START TRANSACTION;
+INSERT INTO employee(emp_id,emp_name,salary,dept_id)VALUES(107,'kavi',25000,2);
+COMMIT;
+
+39.Delete an employee and ROLLBACK.
+START TRANSCATION;
+DELETE FROM employee WHERE emp_id=105;
+ROLLBACK;
+
+40.Remove all records from Employee table (keep structure).
+TRUNCATE TABLE employee;
+
+41.Drop Employee table completely.
+DROP TABLE employee;
+
+42.Add FOREIGN KEY constraint between Employee and Department.
+ALTER TABLE employee ADD CONSTRAINT fk_dept FOREIGN KEY(dept_id)REFERENCES department(dept_id);
+

@@ -1,0 +1,288 @@
+PROCEDURE:
+EMPLOYEES:CREATE RABLE:
+CREATE TABLE employees (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(100),department VARCHAR(50), salary INT);
+INSERT QUERY:
+INSERT INTO employees (name, department, salary) VALUES
+('Rahul', 'IT', 25000),
+('Meena', 'HR', 30000),
+('Suresh', 'Finance', 28000),
+('Priya', 'IT', 35000),
+('Arun', 'Marketing', 27000);
+
+TASKS:
+1.Create a procedure to display all records from a table.
+	Table: employees
+
+DELIMITER $$
+ CREATE PROCEDURE GETalldata()
+BEGIN
+  SELECT * FROM employees;
+END $$
+DELIMITER ;
+TO CALL:
+CALL GETalldata();
+
+2.Create a procedure to display employee details by department.
+	Input: department name (IN deptName)
+DELIMITER $$
+CREATE PROCEDURE getemployeesbydepartment(IN deptname VARCHAR(50))
+BEGIN
+  SELECT * FROM employees WHERE department = deptname;
+END $$
+
+DELIMITER ;
+
+TO CALL:
+CALL getemployeesbydepartment('IT');
+
+
+3.Create a procedure to count employees in a department.
+	Output the count (OUT totalCount)
+DELIMITER $$
+CREATE PROCEDURE GETallemployeescount(OUT total int)
+BEGIN
+ SELECT count(*)INTO total FROM employees;
+ END $$
+ DELIMITER ;
+
+TO CALL:
+SET @count = 0;
+CALL countEmployees('IT', @count);
+SELECT @count;
+
+
+4.Create a procedure to insert a new employee.
+	Inputs: name, department, salary
+DELIMITER $$
+CREATE PROCEDURE INSERT_employees(IN emp_name varchar(50), IN emp_department varchar(20),IN emp_salary int)
+BEGIN
+ INSERT INTO  employees(name,department,salary)VALUES(emp_name,emp_department,emp_salary);
+END $$
+DELIMITER ;
+TO CALL:
+CALL INSERT_employees('pavi','sales','20000');
+
+
+TO CALL:
+SET @total=1;
+CALL getallemployeescount(@total);
+SELECT @total;
+
+
+
+5.Create a procedure to update salary of an employee.
+	Inputs: employee id, new salary
+DELIMITER $$
+CREATE PROCEDURE GETupdatedata(IN emp_id int,IN emp_salary int)
+BEGIN
+  UPDATE employees SET salary=emp_salary WHERE id=emp_id;
+END $$
+DELIMITER ;
+
+TO CALL:
+CALL GETupdatedata('2','40000');
+
+6.Create a procedure to delete an employee by ID.
+DELIMITER $$
+CREATE PROCEDURE GETdeleteemployeebyid(IN emp_id int)
+BEGIN
+  DELETE FROM employees WHERE id=emp_id;
+END $$
+DELIMITER ;
+
+TO CALL:
+CALL GETdeleteemployeebyid(3);
+
+7)Create a procedure to show employees having salary greater than a given value
+DELIMITER $$
+CREATE procedure GETemployeesbysalary(IN employees_salary int)
+BEGIN
+  select * from employees salary WHERE salary>employees_salary;
+END $$
+DELIMITER ;
+
+TO CALL:
+CALL GETemployeesbysalary(30000);
+
+8)Create a procedure to display the highest salary employee
+DELIMITER $$
+CREATE procedure GETemployeesbyhighest_salary()
+BEGIN
+ SELECT * FROM  employees
+ order by salary DESC
+ limit 1;
+END $$
+DELIMITER ;
+
+TO CALL:
+CALL GETemployeesbyhighest_salary();
+
+9.Create a procedure to display the lowest salary employee
+DELIMITER $$
+CREATE procedure GETemployeesbylowest_salary()
+BEGIN
+ SELECT * FROM  employees
+ order by salary ASC
+ limit 1;
+END $$
+DELIMITER ;
+
+TO CALL:
+CALL GETemployeesbylowest_salary(); 
+
+10)Create a procedure to display employees with salary between two values.
+DELIMITER $$;
+create procedure GETemployeesbysalarybetweenvalues(IN min_salary float,IN max_salary float)
+BEGIN
+ SELECT * FROM employees WHERE salary between min_salary AND max_salary;
+END $$ 
+DELIMITER ;
+ 
+TO CALL:
+CALL GETemployeesbysalarybetweenvalues('20000','40000');
+
+11.Create a procedure to increase salary by a percentage (%) for a department.
+DELIMITER $$
+  CREATE procedure GETemployeesincreasesalarybydepartment(IN increase_salary float,IN dept_name varchar(20))
+BEGIN
+  UPDATE employees SET salary=salary+(salary*increase_salary/100) 
+  where department=dept_name;
+END $$
+DELIMITER ;
+
+TO CALL:
+CALL GETemployeesincreasesalarybydepartment('hr','40000');
+
+12)Create a procedure to count total employees in the company
+
+DELIMITER $$
+CREATE procedure GETtotalemployees()
+BEGIN
+ SELECT count(*) AS total_employees FROM employees;
+END $$
+DELIMITER ;
+
+TO CALL:
+CALL GETtotalemployees();
+
+13)Create a procedure with IF ELSE
+DELIMITER $$
+CREATE procedure SalaryCheck(IN empid INT)
+BEGIN
+    DECLARE sal INT;
+
+    SELECT salary INTO sal FROM employees WHERE emp_id = id;
+
+    IF sal > 50000 THEN
+        SELECT 'High Salary' AS result;
+    ELSE
+        SELECT 'Normal Salary' AS result;
+    END IF;
+END $$
+
+DELIMITER ;
+
+TO CALL:
+call usingifelse(3);
+
+--14)	Create a procedure with CASE WHEN
+--o	CASE based on department:
+--o	IT → “Tech Team”
+--o	HR → “Human Resource Team”
+--o	Finance → “Accounts Team”
+--o	Else → “Other Department”
+delimiter $$
+create procedure usingdept(in emp_dept varchar(30))
+begin
+	select *,
+    case
+    when department="IT" then 'Tech Team'
+    when department="HR" then 'Human Resource Team'
+    when department="Finance" then 'Accounts Team'
+    else 'other department'
+    end as emp_department
+    from employees where department=emp_dept;
+end $$
+delimiter ;
+TO CALL:
+call usingdept('HR');
+drop procedure usigndept;
+
+--15)	Create a procedure that returns average salary for each department.
+delimiter $$
+create procedure averagesalary()
+begin
+	select department,avg(salary) from employees group by department order by avg(salary) desc;
+end $$
+delimiter ;
+TO CALL:
+call averagesalary();
+
+--16)	Procedure to find employees whose names start with a given letter.
+delimiter $$
+create procedure startletter()
+begin
+	select * from employees where name like "A%";
+end $$
+delimiter ;
+
+TO CALL:
+call startletter();
+
+--17)	Procedure to show total salary spent for a specific department.
+delimiter $$
+create procedure totalsalary(in dept varchar(30))
+begin
+	select department,sum(salary) as total_salary from employees where department=dept group by department;
+end $$
+delimiter ;
+
+TO CALL:
+call totalsalary('HR');
+
+--18)	Procedure to list employees sorted by salary (ASC or DESC).
+delimiter $$
+create procedure employeesort()
+begin
+	select * from employees order by salary desc;
+end $$
+delimiter ;
+
+TO CALL:
+call employeesort();
+
+--19)	Procedure to check if an employee exists by ID and print message.
+--o	IF EXISTS → "Employee Found"
+--Else → "Not Found"
+delimiter $$
+create procedure checkingemployee(in emp_id int)
+begin
+declare empcount int;
+	select count(*) into empcount from employees where id=emp_id;
+    if empcount>0  then
+		select "employee found" as result;
+	else
+		select "not found" as result;
+	end if;
+end $$
+delimiter ;
+
+TO CALL:
+call checkingemployee(7);
+
+--20)	Procedure to get top 3 highest salary employees.
+delimiter $$
+create procedure highsalary()
+begin
+	select id,name,department,max(salary) from employees group by id,name,department limit 3;
+end $$
+delimiter ;
+
+TO CALL:
+call highsalary();
+
+
+
+
+
+
